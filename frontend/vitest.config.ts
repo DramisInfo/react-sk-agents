@@ -8,9 +8,22 @@ export default defineConfig({
     include: ['src/**/*.test.tsx'],
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json'],
+      reporter: ['text', 'json', 'html'],
       reportsDirectory: './test-coverage',
       cleanOnRerun: true,
+      include: ['src/**'],
+      exclude: [
+        '**/*.config.ts',
+        '**/*.config.js',
+        '**/*.d.ts',
+        'vitest.setup.ts',
+        'node_modules/**',
+        'coverage/**',
+        'test-coverage/**',
+        '.next/**',
+      ],
+      all: true,
+      skipFull: false,
     },
   },
 });

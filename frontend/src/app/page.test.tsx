@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import React from 'react';
+import { render, screen } from '@testing-library/react';
 
 // Mock the required components
 vi.mock('../components/ChatWindow', () => ({
@@ -11,8 +12,13 @@ import Home from './page';
 
 describe('Home Page Component', () => {
   it('should render with ChatWindow component', () => {
-    // Verify the Home component exists and is a function
-    expect(Home).toBeDefined();
-    expect(typeof Home).toBe('function');
+    render(<Home />);
+    expect(screen.getByTestId('chat-window-mock')).toBeInTheDocument();
+  });
+
+  it('should have correct layout classes', () => {
+    const { container } = render(<Home />);
+    const div = container.querySelector('div');
+    expect(div).toHaveClass('flex', 'flex-col', 'items-center', 'justify-center', 'min-h-screen', 'p-8');
   });
 });
