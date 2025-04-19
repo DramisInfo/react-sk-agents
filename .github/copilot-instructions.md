@@ -19,6 +19,7 @@
 - Use async/await for asynchronous operations.
 - Handle loading and error states in UI components.
 - Write unit tests for components using a framework like Jest and React Testing Library.
+- Make sure it's always running on client-side (no server-side rendering) by adding `use client` at the top of the file.
 
 ### Backend
 - Write backend APIs in **Python** (preferably using FastAPI or Flask).
