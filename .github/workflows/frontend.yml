@@ -13,9 +13,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -24,11 +21,11 @@ jobs:
         with:
           node-version: '20'
       - name: Install dependencies
-        run: npm ci
+        run: cd frontend && npm ci
       - name: Lint
-        run: npm run lint || echo 'Linting failed'
+        run: cd frontend && npm run lint || echo 'Linting failed'
       - name: Run tests
-        run: npm run test -- --ci --coverage || npm run test:unit -- --ci --coverage || echo 'Testing failed'
+        run: cd frontend && npm run test
       - name: Upload coverage report
         if: always()
         uses: actions/upload-artifact@v4
