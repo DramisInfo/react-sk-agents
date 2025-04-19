@@ -1,0 +1,27 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
+app = FastAPI()
+
+# Allow CORS for local frontend development
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+class Message(BaseModel):
+    message: str
+
+@app.get("/api/health")
+def health_check() -> dict:
+    """Health check endpoint."""
+    return {"status": "ok"}
+
+@app.post("/api/echo")
+def echo_message(msg: Message) -> Message:
+    """Echoes back the received message."""
+    return msg
