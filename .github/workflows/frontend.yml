@@ -2,6 +2,7 @@ name: Frontend CI
 
 on:
   push:
+    branches: [main]
     paths:
       - 'frontend/**'
       - '.github/workflows/frontend.yml'
@@ -32,9 +33,16 @@ jobs:
         working-directory: ./frontend
         run: npm run test
       
+      - name: List coverage directories (debug)
+        if: always()
+        working-directory: ./frontend
+        run: find . -name "coverage" -type d -o -name "test-coverage" -type d
+      
       - name: Upload coverage report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: frontend-coverage
-          path: frontend/coverage/
+          path: |
+            frontend/coverage/
+            frontend/test-coverage/
