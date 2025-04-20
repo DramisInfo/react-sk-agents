@@ -101,16 +101,13 @@ async def update_agent(
     update_data = agent_update.dict(exclude_unset=True)
 
     # Update the agent with the provided fields
-    for key, value in update_data.items():
-        if value is not None:  # Only update fields with non-None values
-            setattr(agent, key, value)
-
-    # Update the updated_at timestamp
-    agent.updated_at = datetime.now().isoformat()
+    # Update the agent with the provided fields and validate
+    updated_agent = agent.copy(
+        update={**update_data, "updated_at": datetime.now().isoformat()}
+    )
 
     # Save the updated agent
-    agents_db[agent_id] = agent
-
+    agents_db[agent_id] = updated_agent
     return agent
 
 
