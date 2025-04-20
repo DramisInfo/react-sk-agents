@@ -12,13 +12,17 @@ export interface ChatMessageProps {
 
 /**
  * Formats a date to a readable time string.
+ * Using a fixed format to prevent hydration errors between server and client.
  */
 const formatTimestamp = (date?: Date): string => {
   if (!date) return '';
-  return date.toLocaleTimeString(undefined, {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+  
+  // Using a fixed format instead of locale-dependent formatting
+  const hours = date.getHours();
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  
+  // 24-hour format that won't change between server and client
+  return `${hours}:${minutes}`;
 };
 
 /**

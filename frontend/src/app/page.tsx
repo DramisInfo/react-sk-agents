@@ -4,8 +4,8 @@ import { ChatWindow } from '../components/ChatWindow';
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-8">
-      <div className="w-full max-w-4xl tech-shadow">
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <div className="w-full h-full tech-shadow">
         <ChatWindow />
       </div>
     </div>

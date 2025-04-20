@@ -40,11 +40,11 @@ export const ChatWindow: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-[100vh] w-full mx-auto border rounded-lg shadow bg-card dark:bg-card glass-effect neon-border tech-shadow">
-      <div className="flex-grow overflow-hidden">
+    <div className="flex flex-col h-[calc(100vh-64px)] w-full mx-auto border rounded-lg shadow bg-card dark:bg-card glass-effect neon-border tech-shadow">
+      <div className="flex-grow overflow-auto">
         <MessageList messages={messages} />
       </div>
-      <div className="mt-auto">
+      <div className="sticky bottom-0 w-full bg-card dark:bg-card p-4">
         <ChatInput onSend={handleSend} loading={loading} />
       </div>
     </div>
