@@ -5,6 +5,9 @@ import { MessageList } from './MessageList';
 import { ChatInput } from './ChatInput';
 import type { ChatMessageProps } from './ChatMessage';
 
+// Define constants
+const BOT_RESPONSE_DELAY = 1000; // 1 second delay for bot response
+
 /**
  * Main chat window layout component.
  */
