@@ -52,7 +52,7 @@ export const ChatWindow: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-64px)] w-full mx-auto border rounded-lg shadow bg-card dark:bg-card glass-effect neon-border tech-shadow relative z-10">
+    <div className="flex flex-col h-full w-full mx-auto border rounded-lg shadow bg-card dark:bg-card glass-effect neon-border tech-shadow relative z-10">
       <div className="flex-grow overflow-auto z-10">
         <MessageList messages={messages} />
       </div>
