@@ -1,11 +1,11 @@
+import json
+from uuid import UUID
+
 import pytest
 from fastapi.testclient import TestClient
-from uuid import UUID
-import json
 
 from backend.main import app
 from backend.models.message import Message
-
 
 client = TestClient(app)
 
