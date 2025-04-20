@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useRef, useEffect } from 'react';
 
 /**
  * Props for the chat input component.
  */
 export interface ChatInputProps {
-  onSend: (message: string) => void;
+  onSend: (message: string) => Promise<void>;
   loading?: boolean;
 }
 
@@ -15,18 +15,34 @@ export interface ChatInputProps {
  */
 export const ChatInput: React.FC<ChatInputProps> = ({ onSend, loading }) => {
   const [input, setInput] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = (e: FormEvent) => {
+  // Focus the input field when the component mounts
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (input.trim()) {
-      onSend(input);
-      setInput('');
+      try {
+        await onSend(input);
+        setInput('');
+        // Return focus to the input field after sending
+        setTimeout(() => {
+          inputRef.current?.focus();
+        }, 0);
+      } catch (error) {
+        console.error('Failed to send message:', error);
+        // Could add error state handling here
+      }
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="flex items-center p-4 bg-muted dark:bg-muted border-t border-border dark:border-border sticky bottom-0 backdrop-blur-sm">
       <input
+        ref={inputRef}
         type="text"
         className="flex-1 rounded-lg px-4 py-3 bg-card dark:bg-card text-card-foreground dark:text-card-foreground border border-border dark:border-border focus:outline-none focus:ring-2 focus:ring-accent dark:focus:ring-accent-dark"
         placeholder="Type your message..."

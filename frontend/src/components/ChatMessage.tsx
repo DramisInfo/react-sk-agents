@@ -1,4 +1,6 @@
-import React from 'react';
+"use client";
+
+import React, { useState, useEffect } from 'react';
 
 /**
  * Props for a single chat message.
@@ -31,11 +33,16 @@ const formatTimestamp = (date?: Date): string => {
 export const ChatMessage: React.FC<ChatMessageProps> = ({ 
   message, 
   sender, 
-  timestamp = new Date(), 
+  timestamp, 
   senderName 
 }) => {
   const displayName = senderName || (sender === 'user' ? 'You' : 'Agent');
-  const formattedTime = formatTimestamp(timestamp);
+  const [timeDisplay, setTimeDisplay] = useState<string>('');
+  
+  // Only render the timestamp on the client side
+  useEffect(() => {
+    setTimeDisplay(formatTimestamp(timestamp || new Date()));
+  }, [timestamp]);
 
   return (
     <div className={`flex ${sender === 'user' ? 'justify-end' : 'justify-start'} mb-4`}>
@@ -49,7 +56,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
       
       <div className="flex flex-col">
         <div className={`text-xs ${sender === 'user' ? 'text-right' : 'text-left'} text-gray-500 dark:text-gray-400 mb-1`}>
-          {displayName} • {formattedTime}
+          {displayName}{timeDisplay && ` • ${timeDisplay}`}
         </div>
         
         <div
