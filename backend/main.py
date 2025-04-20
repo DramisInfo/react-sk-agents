@@ -1,3 +1,4 @@
+from api.agents import router as agents_router
 from api.messages import router as messages_router
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -19,8 +20,9 @@ class Message(BaseModel):
     message: str
 
 
-# Include the messages router with a prefix
+# Include routers with a prefix
 app.include_router(messages_router, prefix="/api")
+app.include_router(agents_router, prefix="/api")
 
 
 @app.get("/api/health")
