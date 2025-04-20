@@ -2,6 +2,7 @@
 
 import json
 import os
+
 # Direct import from main module which will be accessible in the CI environment
 import sys
 from uuid import UUID
