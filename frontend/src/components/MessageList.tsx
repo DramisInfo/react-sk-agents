@@ -13,7 +13,7 @@ export interface MessageListProps {
  */
 export const MessageList: React.FC<MessageListProps> = ({ messages }) => {
   return (
-    <div className="h-full overflow-y-auto p-4 bg-card dark:bg-card grid-bg">
+    <div className="h-full overflow-y-auto scrollbar-hide p-4 bg-card dark:bg-card grid-bg">
       <div className="flex flex-col space-y-4">
         {messages.map((msg, idx) => (
           <ChatMessage key={idx} message={msg.message} sender={msg.sender} />

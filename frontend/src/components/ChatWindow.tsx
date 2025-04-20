@@ -10,26 +10,41 @@ import type { ChatMessageProps } from './ChatMessage';
  */
 export const ChatWindow: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessageProps[]>([
-    { message: 'Hello! How can I help you today?', sender: 'bot' },
+    { 
+      message: 'Hello! How can I help you today?', 
+      sender: 'bot', 
+      timestamp: new Date(), 
+      senderName: 'Assistant' 
+    },
   ]);
   const [loading, setLoading] = useState(false);
 
   const handleSend = async (msg: string) => {
-    setMessages(prev => [...prev, { message: msg, sender: 'user' }]);
+    setMessages(prev => [...prev, { 
+      message: msg, 
+      sender: 'user', 
+      timestamp: new Date(),
+      senderName: 'You'
+    }]);
     setLoading(true);
     // Simulate bot response for UI demo
     setTimeout(() => {
-      setMessages(prev => [...prev, { message: 'This is a bot reply.', sender: 'bot' }]);
+      setMessages(prev => [...prev, { 
+        message: 'This is a bot reply.', 
+        sender: 'bot', 
+        timestamp: new Date(),
+        senderName: 'Assistant'
+      }]);
       setLoading(false);
     }, 800);
   };
 
   return (
-    <div className="flex flex-col h-[100vh] w-full mx-auto border rounded-lg shadow bg-card dark:bg-card glass-effect neon-border tech-shadow">
-      <div className="flex-grow overflow-hidden">
+    <div className="flex flex-col h-[calc(100vh-64px)] w-full mx-auto border rounded-lg shadow bg-card dark:bg-card glass-effect neon-border tech-shadow">
+      <div className="flex-grow overflow-auto">
         <MessageList messages={messages} />
       </div>
-      <div className="mt-auto">
+      <div className="sticky bottom-0 w-full bg-card dark:bg-card p-4">
         <ChatInput onSend={handleSend} loading={loading} />
       </div>
     </div>
