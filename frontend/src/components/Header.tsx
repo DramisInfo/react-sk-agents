@@ -4,10 +4,10 @@ import React from "react";
 import Link from "next/link";
 
 /**
- * Fixed header component displaying the app logo.
+ * Header component displaying the app logo.
  */
 export const Header: React.FC = () => (
-  <header className="fixed top-0 left-0 right-0 z-50 flex items-center h-16 px-6 bg-card dark:bg-card border-b border-border dark:border-border glass-effect backdrop-blur-sm">
+  <header className="w-full z-50 flex items-center h-16 px-6 bg-card dark:bg-card border-b border-border dark:border-border glass-effect backdrop-blur-sm">
     <div className="container mx-auto flex items-center">
       <Link href="/" className="flex items-center">
         {/* Using a direct SVG element instead of Image component for better compatibility */}

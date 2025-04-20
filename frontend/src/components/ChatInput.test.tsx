@@ -10,13 +10,17 @@ describe('ChatInput', () => {
     expect(screen.getByRole('button', { name: /send/i })).toBeInTheDocument();
   });
 
-  it('calls onSend with input value and clears input', () => {
-    const onSend = vi.fn();
+  it('calls onSend with input value and clears input', async () => {
+    const onSend = vi.fn().mockResolvedValue(undefined);
     render(<ChatInput onSend={onSend} />);
     const input = screen.getByPlaceholderText(/type your message/i);
     fireEvent.change(input, { target: { value: 'Test message' } });
     fireEvent.click(screen.getByRole('button', { name: /send/i }));
     expect(onSend).toHaveBeenCalledWith('Test message');
-    expect(input).toHaveValue('');
+    
+    // Wait for the promise to resolve and state to update
+    await vi.waitFor(() => {
+      expect(input).toHaveValue('');
+    });
   });
 });

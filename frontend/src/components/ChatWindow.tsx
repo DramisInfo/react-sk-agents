@@ -19,7 +19,8 @@ export const ChatWindow: React.FC = () => {
   ]);
   const [loading, setLoading] = useState(false);
 
-  const handleSend = async (msg: string) => {
+  const handleSend = async (msg: string): Promise<void> => {
+    // Add user message to chat
     setMessages(prev => [...prev, { 
       message: msg, 
       sender: 'user', 
@@ -27,21 +28,29 @@ export const ChatWindow: React.FC = () => {
       senderName: 'You'
     }]);
     setLoading(true);
-    // Simulate bot response for UI demo
-    setTimeout(() => {
+    
+    try {
+      // Simulate bot response for UI demo
+      // In a real implementation, this would be an API call
+      await new Promise(resolve => setTimeout(resolve, 800));
+      
       setMessages(prev => [...prev, { 
         message: 'This is a bot reply.', 
         sender: 'bot', 
         timestamp: new Date(),
         senderName: 'Assistant'
       }]);
+    } catch (error) {
+      console.error('Error getting response:', error);
+      // Could add error handling UI here
+    } finally {
       setLoading(false);
-    }, 800);
+    }
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-64px)] w-full mx-auto border rounded-lg shadow bg-card dark:bg-card glass-effect neon-border tech-shadow">
-      <div className="flex-grow overflow-auto">
+    <div className="flex flex-col h-[calc(100vh-64px)] w-full mx-auto border rounded-lg shadow bg-card dark:bg-card glass-effect neon-border tech-shadow relative z-10">
+      <div className="flex-grow overflow-auto z-10">
         <MessageList messages={messages} />
       </div>
       <div className="sticky bottom-0 w-full bg-card dark:bg-card p-4">
