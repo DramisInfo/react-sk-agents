@@ -25,3 +25,11 @@ Thumbs.db
 # IDE/editor folders
 .vscode/
 .idea/
+
+# Test coverage reports
+frontend/coverage/
+frontend/test-coverage/
+backend/htmlcov/
+.coverage
+coverage.xml
+coverage-final.json
