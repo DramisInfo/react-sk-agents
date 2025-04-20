@@ -2,7 +2,6 @@ from datetime import datetime
 from typing import Dict, List, Optional
 
 from fastapi import APIRouter, HTTPException, Path
-
 from models.agent import Agent, AgentCreate, AgentUpdate
 
 router = APIRouter(tags=["agents"])

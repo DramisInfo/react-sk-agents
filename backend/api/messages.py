@@ -3,7 +3,6 @@ from typing import List
 from uuid import UUID
 
 from fastapi import APIRouter, HTTPException, status
-
 from models.message import Message, MessageCreate, MessageList
 
 router = APIRouter(tags=["messages"])
