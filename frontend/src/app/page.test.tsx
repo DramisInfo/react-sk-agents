@@ -19,6 +19,6 @@ describe('Home Page Component', () => {
   it('should have correct layout classes', () => {
     const { container } = render(<Home />);
     const div = container.querySelector('div');
-    expect(div).toHaveClass('flex', 'flex-col', 'items-center', 'justify-center', 'min-h-screen', 'p-8');
+    expect(div).toHaveClass('flex', 'flex-col', 'items-center', 'justify-start', 'w-full', 'h-[calc(100vh-64px)]', 'p-8', 'pt-4');
   });
 });

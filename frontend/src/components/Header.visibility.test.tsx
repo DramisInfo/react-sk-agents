@@ -51,8 +51,8 @@ describe('Header Visibility Test', () => {
     const MockLayout = () => (
       <>
         <Header />
-        <main>
-          <div className="flex flex-col items-center p-8">
+        <main className="flex-1">
+          <div className="flex flex-col items-center justify-start w-full h-[calc(100vh-64px)] p-8 pt-4">
             <div className="w-full h-full">
               <div>Chat Window Content</div>
             </div>

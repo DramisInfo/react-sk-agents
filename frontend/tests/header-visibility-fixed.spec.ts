@@ -12,10 +12,10 @@ test.describe('Header Visibility Tests', () => {
     const header = await page.locator('header');
     
     // Check if the header exists
-    await expect(header).toHaveCount(1, { message: 'Header element should exist on the page' });
+    await expect(header).toHaveCount(1);
     
     // Check if the header is visible in the viewport
-    await expect(header).toBeVisible({ message: 'Header should be visible' });
+    await expect(header).toBeVisible();
     
     // Check if the header contains the app logo text
     await expect(header.locator('text=SK Agents')).toBeVisible();
@@ -25,7 +25,12 @@ test.describe('Header Visibility Tests', () => {
     console.log('Header position:', boundingBox);
     
     // Header should be at or near the top of the page (allowing for minimal margins)
-    expect(boundingBox?.y).toBeLessThanOrEqual(10, 'Header should be at the top of the page');
+    expect(boundingBox?.y).toBeLessThanOrEqual(10);
+    // Or use .toEqual() with a custom matcher if you want to include a message
+    expect(boundingBox?.y).toEqual(expect.any(Number));
+    expect(boundingBox?.y).not.toBeNull();
+    expect(boundingBox?.y).toBeDefined();
+    expect(boundingBox && boundingBox.y < 10).toBeTruthy();
     
     // Capture screenshot for visual verification
     await page.screenshot({ path: './test-results/header-visibility.png' });
