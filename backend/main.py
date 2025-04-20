@@ -1,8 +1,7 @@
+from api.messages import router as messages_router
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-
-from api.messages import router as messages_router
 
 app = FastAPI(title="Chat API", description="API for chat messages")
 
