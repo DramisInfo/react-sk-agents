@@ -33,3 +33,8 @@ backend/htmlcov/
 .coverage
 coverage.xml
 coverage-final.json
+
+# Playwright test results
+frontend/test-results/
+playwright-report/
+playwright/.cache/
