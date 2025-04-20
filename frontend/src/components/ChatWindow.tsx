@@ -32,7 +32,7 @@ export const ChatWindow: React.FC = () => {
     try {
       // Simulate bot response for UI demo
       // In a real implementation, this would be an API call
-      await new Promise(resolve => setTimeout(resolve, 800));
+      await new Promise(resolve => setTimeout(resolve, BOT_RESPONSE_DELAY));
       
       setMessages(prev => [...prev, { 
         message: 'This is a bot reply.', 
