@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import Dict, List, Optional
 
 from fastapi import APIRouter, HTTPException, Path
+
 from models.agent import Agent, AgentCreate, AgentUpdate
 
 router = APIRouter(tags=["agents"])
@@ -108,7 +109,7 @@ async def update_agent(
 
     # Save the updated agent
     agents_db[agent_id] = updated_agent
-    return agent
+    return updated_agent
 
 
 @router.delete("/agents/{agent_id}", response_model=dict)
