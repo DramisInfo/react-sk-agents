@@ -1,4 +1,5 @@
 """Integration tests for the backend API endpoints."""
+
 import pytest
 from fastapi.testclient import TestClient
 from uuid import UUID
@@ -7,7 +8,8 @@ import json
 # Direct import from main module which will be accessible in the CI environment
 import sys
 import os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from main import app
 
@@ -37,25 +39,25 @@ def test_message_api_flow():
     create_response = client.post("/api/messages", json=new_message)
     assert create_response.status_code == 201
     message_data = create_response.json()
-    
+
     # Validate message structure
     assert message_data["content"] == new_message["content"]
     assert message_data["sender"] == new_message["sender"]
     assert "id" in message_data
     assert "timestamp" in message_data
-    
+
     message_id = message_data["id"]
-    
+
     # 2. Get message by ID
     get_response = client.get(f"/api/messages/{message_id}")
     assert get_response.status_code == 200
     assert get_response.json()["id"] == message_id
-    
+
     # 3. List all messages
     list_response = client.get("/api/messages")
     assert list_response.status_code == 200
     messages = list_response.json()["messages"]
-    
+
     # Find our message in the list
     matching_messages = [msg for msg in messages if msg["id"] == message_id]
     assert len(matching_messages) == 1

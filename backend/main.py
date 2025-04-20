@@ -15,16 +15,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 class Message(BaseModel):
     message: str
 
+
 # Include the messages router with a prefix
 app.include_router(messages_router, prefix="/api")
+
 
 @app.get("/api/health")
 def health_check() -> dict:
     """Health check endpoint."""
     return {"status": "ok"}
+
 
 @app.post("/api/echo")
 def echo_message(msg: Message) -> Message:

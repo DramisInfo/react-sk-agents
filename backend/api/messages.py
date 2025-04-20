@@ -16,17 +16,15 @@ _messages: List[Message] = []
 async def create_message(message: MessageCreate) -> Message:
     """
     Create a new chat message.
-    
+
     Args:
         message: The message data to create
-        
+
     Returns:
         The created message with generated ID and timestamp
     """
     new_message = Message(
-        content=message.content,
-        sender=message.sender,
-        timestamp=datetime.now()
+        content=message.content, sender=message.sender, timestamp=datetime.now()
     )
     _messages.append(new_message)
     return new_message
@@ -36,7 +34,7 @@ async def create_message(message: MessageCreate) -> Message:
 async def get_messages() -> MessageList:
     """
     Retrieve all chat messages.
-    
+
     Returns:
         A list of all messages
     """
@@ -47,21 +45,21 @@ async def get_messages() -> MessageList:
 async def get_message(message_id: UUID) -> Message:
     """
     Retrieve a specific message by its ID.
-    
+
     Args:
         message_id: The unique identifier of the message
-        
+
     Returns:
         The requested message
-        
+
     Raises:
         HTTPException: If the message is not found
     """
     for message in _messages:
         if message.id == message_id:
             return message
-    
+
     raise HTTPException(
         status_code=status.HTTP_404_NOT_FOUND,
-        detail=f"Message with ID {message_id} not found"
+        detail=f"Message with ID {message_id} not found",
     )

@@ -13,8 +13,7 @@ client = TestClient(app)
 def test_create_message():
     """Test creating a new message."""
     response = client.post(
-        "/api/messages",
-        json={"content": "Hello, world!", "sender": "test_user"}
+        "/api/messages", json={"content": "Hello, world!", "sender": "test_user"}
     )
     assert response.status_code == 201
     data = response.json()
@@ -42,17 +41,16 @@ def test_message_flow():
     """Test creating and then retrieving messages."""
     # Create a message
     create_response = client.post(
-        "/api/messages",
-        json={"content": "Test message", "sender": "flow_test_user"}
+        "/api/messages", json={"content": "Test message", "sender": "flow_test_user"}
     )
     assert create_response.status_code == 201
     message_id = create_response.json()["id"]
-    
+
     # Get all messages and check if our message is included
     list_response = client.get("/api/messages")
     assert list_response.status_code == 200
     messages = list_response.json()["messages"]
-    
+
     # Find our message in the list
     found = False
     for msg in messages:
@@ -61,7 +59,7 @@ def test_message_flow():
             assert msg["content"] == "Test message"
             assert msg["sender"] == "flow_test_user"
             break
-    
+
     # This might fail if the in-memory store is reset between requests
     # In a real test environment, we would use a test database or mock
     assert found, "Created message not found in message list"
@@ -71,13 +69,12 @@ def test_get_message_by_id():
     """Test retrieving a specific message by ID."""
     # Create a message first
     create_response = client.post(
-        "/api/messages", 
-        json={"content": "Message by ID", "sender": "id_test_user"}
+        "/api/messages", json={"content": "Message by ID", "sender": "id_test_user"}
     )
     assert create_response.status_code == 201
     message_data = create_response.json()
     message_id = message_data["id"]
-    
+
     # Now retrieve it by ID
     get_response = client.get(f"/api/messages/{message_id}")
     assert get_response.status_code == 200
